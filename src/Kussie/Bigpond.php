@@ -78,19 +78,15 @@ class Bigpond
     {
         $crawler = $this->client->request(
             'POST',
-            $this->loginUrl.'/',
+            $this->loginUrl,
             [
                 'username' => $this->username,
-                'password'    => $this->password
+                'password'    => $this->password,
+                'encoded' => false
             ]
         );
         $this->loginCrawler = $crawler;
-
-        if (count($crawler->filter('.content h2:contains("Sorry, there was a problem")')) === 0) {
-            return false;
-        } else {
-            return $this->usage();
-        }
+        $this->usage();
     }
 
     /**
@@ -110,6 +106,7 @@ class Bigpond
             []
         );
         $this->usageCrawler = $crawler;
+        var_dump($crawler);
 
         return true;
     }
@@ -125,7 +122,7 @@ class Bigpond
             $this->login();
         }
 
-        $used = $this->usageCrawler->filter('.usage-so-far span')->text();
+        $used = $this->usageCrawler->filter('.usage-so-far span.number')->text();
 
         return $used;
     }
@@ -141,7 +138,7 @@ class Bigpond
             $this->login();
         }
 
-        $remains = $this->usageCrawler->filter('.remains span')->text();
+        $remains = $this->usageCrawler->filter('.remains span.number')->text();
 
         return $remains;
     }
@@ -157,7 +154,7 @@ class Bigpond
             $this->login();
         }
 
-        $daysLeft = $this->usageCrawler->filter('.days-remaining span')->text();
+        $daysLeft = $this->usageCrawler->filter('.days-remaining span.number')->text();
 
         return $daysLeft;
     }
