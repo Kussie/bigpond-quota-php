@@ -106,7 +106,6 @@ class Bigpond
             []
         );
         $this->usageCrawler = $crawler;
-        var_dump($crawler);
 
         return true;
     }
@@ -173,5 +172,16 @@ class Bigpond
         $billingCycle = $this->usageCrawler->filter('.billing-dates span')->text();
 
         return trim($billingCycle);
+    }
+
+    public function getQuota()
+    {
+        if (!$this->usageCrawler) {
+            $this->login();
+        }
+
+        $total = $this->usageCrawler->filter('.usage-desc-container span.allowance')->text();
+        return str_replace('GB', '', $total);
+        
     }
 }
