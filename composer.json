@@ -1,0 +1,23 @@
+{
+    "name": "kussie/bigpond",
+    "description": "A PHP API for retrieving Bigpond quota from Telstra.",
+    "type": "library",
+    "minimum-stability": "dev",
+    "keywords": [
+        "bigpond", "telstra", "quota", "scraping"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ben Kuskopf",
+            "email": "kussie@gmail.com",
+            "homepage": "https://github.com/Kussie"
+        }
+    ],
+    "require": {
+        "fabpot/goutte": "~3.0"
+    },
+    "autoload": {
+        "psr-0": { "Kussie\\Bigpond": "src/" }
+    }
+}
